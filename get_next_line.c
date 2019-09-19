@@ -6,13 +6,13 @@
 /*   By: bsatou <bsatou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:10:29 by bsatou            #+#    #+#             */
-/*   Updated: 2019/09/19 22:31:58 by bsatou           ###   ########.fr       */
+/*   Updated: 2019/09/19 23:12:48 by bsatou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char		*ft_strjoin_free(char *s1, const char *s2)
+static char		*ft_strjoin_free(char *s1, char *s2)
 {
 	char *temp;
 
@@ -24,12 +24,11 @@ static char		*ft_strjoin_free(char *s1, const char *s2)
 	return (s1);
 }
 
-static t_list	*ft_fd_collection(size_t fd)
+static t_list	*fd_collection(size_t fd)
 {
-	static t_list	*fd_list;
+	static t_list	*fd_list = NULL;
 	t_list			*list;
 
-	fd_list = NULL;
 	list = fd_list;
 	while (list)
 	{
@@ -42,28 +41,27 @@ static t_list	*ft_fd_collection(size_t fd)
 	return (list);
 }
 
-static char		*ft_getline(char **dst, const char *src)
+static char		*fd_getline(char **dst_str, char *src_str)
 {
-	size_t	len;
+	int len;
 
 	len = 0;
-	while (src[len] != '\n')
+	while (src_str[len] != '\n')
 	{
-		if (src[len] == '\0')
+		if (src_str[len] == '\0')
 			break ;
 		len++;
 	}
-	*dst = ft_strsub(src, 0, len);
-	return (ft_strdup(src[len]));
+	*dst_str = ft_strsub(src_str, 0, len);
+	return (ft_strdup(&src_str[len + 1]));
 }
-
 
 int				get_next_line(const int fd, char **line)
 {
-	t_list	*fd_list;
-	char	*temp;
 	char	buff[BUFF_SIZE + 1];
+	t_list	*fd_list;
 	int		index;
+	char	*temp;
 
 	if (fd < 0 || line == NULL || read(fd, buff, 0) < 0)
 		return (-1);
@@ -76,11 +74,11 @@ int				get_next_line(const int fd, char **line)
 		if (ft_strchr(buff, '\n'))
 			break ;
 	}
-	if (!fd_list->content)
+	if (!ft_strlen(fd_list->content))
 		return (0);
 	*line = fd_list->content;
 	temp = fd_list->content;
-	fd_list->content = ft_getline(line, temp);
+	fd_list->content = fd_getline(line, temp);
 	free(temp);
 	return (1);
 }
