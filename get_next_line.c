@@ -6,7 +6,7 @@
 /*   By: bsatou <bsatou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:10:29 by bsatou            #+#    #+#             */
-/*   Updated: 2019/09/20 17:13:39 by bsatou           ###   ########.fr       */
+/*   Updated: 2019/09/20 17:26:48 by bsatou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,29 @@ static t_list	*fd_collection(int fd)
 			return (list);
 		list = list->next;
 	}
-	list = ft_lstnew("", fd);
+	list = ft_lstnew("", (size_t)fd);
 	ft_lstadd(&fd_list, list);
 	return (list);
 }
 
 static char		*fd_getline(char **dst_str, char *src_str)
 {
-	int len;
+	size_t	len;
+	size_t	stop;
 
 	len = 0;
+	stop = 1;
 	while (src_str[len] != '\n')
 	{
 		if (src_str[len] == '\0')
+		{
+			stop = 0;
 			break ;
+		}
 		len++;
 	}
 	*dst_str = ft_strsub(src_str, 0, len);
-	return (ft_strdup(&src_str[len + 1]));
+	return (ft_strdup(&src_str[len + stop]));
 }
 
 int				get_next_line(const int fd, char **line)
