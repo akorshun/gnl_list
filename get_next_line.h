@@ -6,14 +6,14 @@
 /*   By: bsatou <bsatou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:11:03 by bsatou            #+#    #+#             */
-/*   Updated: 2019/09/19 23:10:30 by bsatou           ###   ########.fr       */
+/*   Updated: 2019/09/20 17:12:40 by bsatou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE 100
+# define BUFF_SIZE 50
 
 # include "libft/libft.h"
 # include <stdlib.h>
