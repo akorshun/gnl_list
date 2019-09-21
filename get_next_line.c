@@ -41,24 +41,24 @@ static t_list	*fd_collection(int fd)
 	return (list);
 }
 
-static char		*fd_getline(char **dst_str, char *src_str)
+static char		*fd_getline(char **dst, char *src)
 {
 	size_t	len;
 	size_t	stop;
 
 	len = 0;
 	stop = 1;
-	while (src_str[len] != '\n')
+	while (src[len] != '\n')
 	{
-		if (src_str[len] == '\0')
+		if (src[len] == '\0')
 		{
 			stop = 0;
 			break ;
 		}
 		len++;
 	}
-	*dst_str = ft_strsub(src_str, 0, len);
-	return (ft_strdup(&src_str[len + stop]));
+	*dst = ft_strsub(src, 0, len);
+	return (ft_strdup(&src[len + stop]));
 }
 
 int				get_next_line(const int fd, char **line)
@@ -81,7 +81,6 @@ int				get_next_line(const int fd, char **line)
 	}
 	if (!ft_strlen(fd_list->content))
 		return (0);
-	*line = fd_list->content;
 	temp = fd_list->content;
 	fd_list->content = fd_getline(line, temp);
 	free(temp);
