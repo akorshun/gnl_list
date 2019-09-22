@@ -22,12 +22,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	j = 0;
 	if (!s1 || !s2 || !(strjoined = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
 		return (NULL);
-	while (i < ft_strlen(s1))
+	while (s1[i])
 	{
 		strjoined[i] = s1[i];
 		i++;
 	}
-	while (j < ft_strlen(s2))
+	while (s2[j])
 	{
 		strjoined[j + i] = s2[j];
 		j++;
