@@ -47,18 +47,13 @@ static char		*fd_getline(char **dst, char *src)
 	size_t	stop;
 
 	len = 0;
-	stop = 1;
-	while (src[len] != '\n')
-	{
-		if (src[len] == '\0')
-		{
-			stop = 0;
-			break ;
-		}
+	stop = 0;
+	if (ft_strchr(src, '\n'))
+		stop = 1;
+	while (src[len] && src[len] != '\n')
 		len++;
-	}
 	*dst = ft_strsub(src, 0, len);
-	return (ft_strdup(&src[len + stop]));
+	return (ft_strsub(src, len + stop, ft_strlen(src)));
 }
 
 int				get_next_line(const int fd, char **line)
@@ -83,6 +78,6 @@ int				get_next_line(const int fd, char **line)
 		return (0);
 	temp = fd_list->content;
 	fd_list->content = fd_getline(line, temp);
-	free(temp);
+	ft_strdel(&temp);
 	return (1);
 }
