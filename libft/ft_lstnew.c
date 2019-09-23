@@ -6,7 +6,7 @@
 /*   By: bsatou <bsatou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:35:40 by bsatou            #+#    #+#             */
-/*   Updated: 2019/09/12 16:37:44 by bsatou           ###   ########.fr       */
+/*   Updated: 2019/09/23 15:30:59 by bsatou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 		if (!new_list->content)
 		{
 			free(new_list->content);
+			new_list->content = NULL;
 			return (NULL);
 		}
 		new_list->content = ft_memcpy(new_list->content, content, content_size);

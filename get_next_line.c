@@ -6,7 +6,7 @@
 /*   By: bsatou <bsatou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:10:29 by bsatou            #+#    #+#             */
-/*   Updated: 2019/09/23 15:21:24 by bsatou           ###   ########.fr       */
+/*   Updated: 2019/09/23 15:39:19 by bsatou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static t_list	*fd_collection(size_t fd)
 			return (list);
 		list = list->next;
 	}
-	list = ft_lstnew("", fd);
+	if (!list)
+		list = ft_lstnew("\0", fd);
 	ft_lstadd(&fd_list, list);
 	return (list);
 }
