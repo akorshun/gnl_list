@@ -6,7 +6,7 @@
 /*   By: bsatou <bsatou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:10:29 by bsatou            #+#    #+#             */
-/*   Updated: 2019/09/20 17:26:48 by bsatou           ###   ########.fr       */
+/*   Updated: 2019/09/23 15:21:24 by bsatou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static char		*ft_strjoin_free(char *s1, char *s2)
 
 	temp = ft_strdup(s1);
 	if (s1)
-		free(s1);
+		ft_strdel(&s1);
 	s1 = ft_strjoin(temp, s2);
-	free(temp);
+	ft_strdel(&temp);
 	return (s1);
 }
 
-static t_list	*fd_collection(int fd)
+static t_list	*fd_collection(size_t fd)
 {
 	static t_list	*fd_list = NULL;
 	t_list			*list;
@@ -32,11 +32,11 @@ static t_list	*fd_collection(int fd)
 	list = fd_list;
 	while (list)
 	{
-		if (list->content_size == (size_t)fd)
+		if (list->content_size == fd)
 			return (list);
 		list = list->next;
 	}
-	list = ft_lstnew("", (size_t)fd);
+	list = ft_lstnew("", fd);
 	ft_lstadd(&fd_list, list);
 	return (list);
 }
