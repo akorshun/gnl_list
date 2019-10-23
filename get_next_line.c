@@ -37,7 +37,10 @@ static t_list	*fd_collection(size_t fd)
 		list = list->next;
 	}
 	if (!list)
-		list = ft_lstnew("\0", fd);
+	{
+		list = ft_lstnew("\0", 1);
+		list->content_size = fd;
+	}
 	ft_lstadd(&fd_list, list);
 	return (list);
 }
